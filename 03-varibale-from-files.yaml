@@ -1,0 +1,9 @@
+- name: play to capture variable from files vars_files
+  hosts: web01
+  vars_files:
+    - variables.yaml
+  become: yes
+  tasks:
+    - name: task of playbook
+      ansible.builtin.debug:
+        msg: "Hi I am learing the {{COURSE}} from {{NAME}} for duration {{DURATION}}"
