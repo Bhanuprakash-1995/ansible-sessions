@@ -33,23 +33,27 @@
         - web
       register: ec2_instances
 
-    - name: Wait for instances to reach 'running' state
-      wait_for:
-        host: "{{ item.instance.public_ip_addresses }}"
-        port: 22 # Replace with the appropriate port
-        state: started
-        delay: 10
-        timeout: 600 # Adjust the timeout value as per your requirements
-      loop: "{{ ec2_instances.results }}"
-      when: item.instance.public_ip_addresses is defined
+    - name: Print the ec2_instances variable for debugging
+      ansible.builtin.debug:
+        msg: "{{ec2_instances}}"
 
-    - name: Create Route 53 DNS record
-      route53:
-        command: create
-        zone: "{{ ZONE }}" # Replace with your Route 53 zone ID or name
-        record: "{{ item.item + '.' + ZONE }}"
-        type: A
-        ttl: 300 # Adjust TTL as per your requirement
-        value: "{{ item.instance.private_ip_address }}" # Use 'private_ip' for private IP
-      loop: "{{ ec2_instances.results }}"
-      when: item.instance.public_ip_addresses is defined
+    # - name: Wait for instances to reach 'running' state
+    #   wait_for:
+    #     host: "{{ item.instance.public_ip_addresses }}"
+    #     port: 22 # Replace with the appropriate port
+    #     state: started
+    #     delay: 10
+    #     timeout: 600 # Adjust the timeout value as per your requirements
+    #   loop: "{{ ec2_instances.results }}"
+    #   when: item.instance.public_ip_addresses is defined
+
+    # - name: Create Route 53 DNS record
+    #   route53:
+    #     command: create
+    #     zone: "{{ ZONE }}" # Replace with your Route 53 zone ID or name
+    #     record: "{{ item.item + '.' + ZONE }}"
+    #     type: A
+    #     ttl: 300 # Adjust TTL as per your requirement
+    #     value: "{{ item.instance.private_ip_address }}" # Use 'private_ip' for private IP
+    #   loop: "{{ ec2_instances.results }}"
+    #   when: item.instance.public_ip_addresses is defined
