@@ -1,5 +1,5 @@
 - name: Capture the values from Inventory files
-  hosts: localhost
+  hosts: web01
   become: yes
   tasks:
     - name: task-1
