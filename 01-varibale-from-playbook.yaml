@@ -1,5 +1,5 @@
 - name: vaibales in playbook
-  hosts: web01
+  hosts: localhost
   vars:
     NAME: "Bhanuprakash Yadav"
     MESSAGE: "Afternoon"
