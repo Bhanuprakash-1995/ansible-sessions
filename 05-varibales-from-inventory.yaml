@@ -1,7 +1,6 @@
-- name: Capture the values from Inventory files
+- name: variables from PLAY level
   hosts: localhost
-  become: yes
   tasks:
-    - name: task-1
+    - name: check variables
       ansible.builtin.debug:
-        msg: "Hi all, I am learning the {{COURSE}} from {{NAME}} for duration {{DURATION}}"
+        msg: "Hi, I am learning {{Course}}, Trainer is {{Trainer}}, Duration is {{Duration}}"
