@@ -1,0 +1,14 @@
+- name: playbook to capture the variable values from prompt
+  hosts: web01
+  become: yes
+  var_prompt:
+    - name: USERNAME
+      prompt: Please enter your name
+      private: false
+    - name: PASSWORD
+      prompt: Please enter your password
+      private: ture
+  tasks:
+    - name: task-1
+      ansible.builtin.debug:
+        msg: "My Username: {{USERNAME}} and password: {{PASSOWRD}}"
