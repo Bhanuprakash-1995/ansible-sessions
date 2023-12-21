@@ -1,0 +1,12 @@
+- name: play book for loops
+  hosts: web01
+  become: yes
+  tasks:
+    - name: loop task
+      ansible.builtin.debug:
+        msg: "Hello {{item}}"
+      loop:
+        - Singala
+        - Bhanu
+        - Prakash
+        - Yadav
