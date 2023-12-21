@@ -32,6 +32,15 @@
         - payment
         - dispatch
         - web
-    - name: display Ip addess
-      ansible.builtin.debug:
-        vars: ansible_distribution
+      register: ec2_instances
+
+    - name: Create Route 53 DNS record
+      route53:
+        command: create
+        zone: "{{ZONE}}" # Replace with your Route 53 zone ID or name
+        record: "{{item.item}.{{ZONE}}}"
+        type: A
+        ttl: 1
+        value: "{{ item.instance.private_ip }}" # Use 'private_ip' for private IP
+      loop: "{{ ec2_instances.results }}"
+      when: item.instance.public_ip is defined
