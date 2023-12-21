@@ -20,6 +20,4 @@
         enabled: "{{item.enabled}}"
       loop:
         - { name: "nginx", state: "started", enabled: "yes" }
-        - { name: "git", state: "started", enabled: "yes" }
-        - { name: "mysql", state: "started", enabled: "yes" }
         - { name: "postfix", state: "started", enabled: "yes" }
