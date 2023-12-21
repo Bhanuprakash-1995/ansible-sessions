@@ -6,6 +6,7 @@
     SECURITY_GP: sg-0170a2c37d33656c2
     INSTANCE_TYPE: t2.micro
     REGION: us-east-1
+    ZONE: roboshopapp.website
   tasks:
     - name: start an instance
       amazon.aws.ec2_instance:
@@ -17,6 +18,15 @@
           Environment: "{{item}}"
         exact_count: 1
         region: "{{REGION}}"
+    - name: Adding the records in Rout53
+      amazon.aws.route53:
+        state: present
+        zone: "{{ZONE}}"
+        record: "{{item}}.{{ZONE}}"
+        type: A
+        ttl: 7200
+        value: 1.1.1.1,2.2.2.2,3.3.3.3
+        wait: true
       loop:
         - mongodb
         - catalogue
