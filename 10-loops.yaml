@@ -6,10 +6,20 @@
       ansible.builtin.package:
         name: "{{item.name}}"
         state: "{{item.state}}"
-        enabled: yes
 
       loop:
         - { name: "nginx", state: "present" }
         - { name: "git", state: "present" }
         - { name: "mysql", state: "present" }
         - { name: "postfix", state: "present" }
+
+    - name: service task
+      ansible.builtin.service:
+        name: "{{item.name}}"
+        state: "{{item.state}}"
+        enabled: "{{item.enabled}}"
+      loop:
+        - { name: "nginx", state: "started", enabled: "yes" }
+        - { name: "git", state: "started", enabled: "yes" }
+        - { name: "mysql", state: "started", enabled: "yes" }
+        - { name: "postfix", state: "started", enabled: "yes" }
