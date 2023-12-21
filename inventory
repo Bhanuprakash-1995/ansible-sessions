@@ -9,5 +9,12 @@ all:
         NAME: "Sivakumar"
         DURATION: "110HRS"
 
+[localhost]
+localhost
+
+[web01:vars]
+ COURSE: "DevOps From inventory"
+NAME: "Sivakumar"
+DURATION: "110HRS"
 
 
