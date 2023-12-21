@@ -1,15 +1,24 @@
 - hosts: localhost
   gather_facts: False
   become: yes
+  vars:
+    AMI_ID: ami-03265a0778a880afb
+    SECURITY_GP: sg-0170a2c37d33656c2
+    INSTANCE_TYPE: ""
+    REGION: us-east-1
   tasks:
     - name: start an instance
       amazon.aws.ec2_instance:
-        name: "catalogue-target-machine"
-        instance_type: t2.micro
-        security_group: sg-0170a2c37d33656c2
-        key_name: target
-        image_id: ami-03265a0778a880afb
+        name: "{{item}}"
+        instance_type: "{{INSTANCE_TYPE}}"
+        security_group: "{{SECURITY_GP}}"
+        image_id: "{{AMI_ID}}"
         tags:
-          Environment: Web
+          Environment: "{{item}}"
         exact_count: 1
         region: us-east-1
+      loop:
+        - mongodb
+        - redis
+        - catalogue
+        - web
