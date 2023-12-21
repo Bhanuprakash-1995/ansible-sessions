@@ -18,6 +18,8 @@
           Environment: "{{item}}"
         exact_count: 1
         region: "{{REGION}}"
+      ansible.builtin.debug:
+        vars: ansible_distribution
       loop:
         - mongodb
         - catalogue
