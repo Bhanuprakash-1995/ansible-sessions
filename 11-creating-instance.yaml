@@ -24,12 +24,15 @@
         - redis
       register: ec2_instances
 
-    - name: Access private_ip_address for 'mongodb' and 'redis' instances
-      debug:
-        msg: "Private IP Address of '{{ item.item }}' instance is {{ item.instances[0].private_ip_address }}"
+    - name: Create Route 53 DNS records for 'mongodb' and 'redis' instances
+      route53:
+        command: create
+        zone: "{{ ZONE }}"
+        record: "{{ item.item + '.' + ZONE }}"
+        type: A
+        ttl: 1 # Adjust TTL as needed
+        value: "{{ item.instances[0].private_ip_address }}" # Use private_ip_address for DNS record
       loop: "{{ ec2_instances.results }}"
-      loop_control:
-        label: "{{ item.item }}"
       when:
         - item.item in ['mongodb', 'redis']
 
