@@ -8,7 +8,7 @@
     REGION: us-east-1
     ZONE: roboshopapp.website
   tasks:
-    - name: Start an instance
+    - name: Start instances
       amazon.aws.ec2_instance:
         name: "{{ item }}"
         instance_type: "{{ 't3.medium' if item in ['mongodb', 'mysql', 'shipping'] else INSTANCE_TYPE }}"
@@ -21,11 +21,17 @@
         wait: true
       loop:
         - mongodb
+        - redis
       register: ec2_instances
 
-    - name: Access private_ip_address for 'mongodb' instance
+    - name: Access private_ip_address for 'mongodb' and 'redis' instances
       debug:
-        msg: "Private IP Address of 'mongodb' instance is {{ ec2_instances.results[0].instances[0].private_ip_address }}"
+        msg: "Private IP Address of '{{ item.item }}' instance is {{ item.instances[0].private_ip_address }}"
+      loop: "{{ ec2_instances.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      when:
+        - item.item in ['mongodb', 'redis']
 
     # - name: Wait for instances to reach 'running' state
     #   wait_for:
