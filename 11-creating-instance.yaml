@@ -18,15 +18,9 @@
           Environment: "{{item}}"
         exact_count: 1
         region: "{{REGION}}"
-    - name: Adding the records in Rout53
-      amazon.aws.route53:
-        state: present
-        zone: "{{ZONE}}"
-        record: "{{item}}.{{ZONE}}"
-        type: A
-        ttl: 1
-        value: 1.1.1.1,2.2.2.2,3.3.3.3
-        wait: true
+
+      ansible.builtin.debug:
+        vars: ansible_distribution
       loop:
         - mongodb
         - catalogue
