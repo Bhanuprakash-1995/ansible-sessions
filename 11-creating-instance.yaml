@@ -12,4 +12,4 @@
         tags:
           Environment: Web
         exact_count: 1
-        region: us-east-1c
+        region: us-east-1
