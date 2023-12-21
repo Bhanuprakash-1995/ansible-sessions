@@ -18,6 +18,7 @@
           Environment: "{{ item }}"
         exact_count: 1
         region: "{{ REGION }}"
+        wait: true
       loop:
         - mongodb
         - catalogue
