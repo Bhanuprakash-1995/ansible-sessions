@@ -1,10 +1,10 @@
 - name: vaibales in playbook
   hosts: web01
-  var:
+  vars:
     NAME: "Bhanuprakash"
     MESSAGE: "Morning"
   become: yes
   tasks:
     - name: print the varibale declared in the playbook
-      ansible.builtin.playbook:
+      ansible.builtin.debug:
         msg: "Hi {{NAME}}, Good {{MESSAGE}}"
