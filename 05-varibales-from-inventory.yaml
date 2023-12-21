@@ -3,5 +3,5 @@
   become: yes
   tasks:
     - name: task-1
-      ansible.builtin.debug:
-        msg: "Hi all, I am learning the {{ COURSE }} from {{ NAME }} for duration {{ DURATION }}"
+      debug:
+        msg: "Hi all, I am learning the {{ hostvars[inventory_hostname]['COURSE'] }} from {{ hostvars[inventory_hostname]['NAME'] }} for duration {{ hostvars[inventory_hostname]['DURATION'] }}"
