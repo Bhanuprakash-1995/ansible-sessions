@@ -21,16 +21,9 @@
         wait: true
       loop:
         - mongodb
-        - catalogue
         - redis
-        - user
-        - cart
         - mysql
         - shipping
-        - rabbitmq
-        - payment
-        - dispatch
-        - web
       register: ec2_instances
 
     - name: Print the ec2_instances variable for debugging
