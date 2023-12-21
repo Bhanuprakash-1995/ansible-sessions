@@ -1,8 +1,8 @@
 - name: vaibales in playbook
-  hosts: localhost
+  hosts: web01
   vars:
-    NAME: "Bhanuprakash"
-    MESSAGE: "Morning"
+    NAME: "Bhanuprakash Yadav"
+    MESSAGE: "Afternoon"
   become: yes
   tasks:
     - name: print the varibale declared in the playbook
