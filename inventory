@@ -1,6 +1,6 @@
 all:
   hosts:
     web01:
-      ansible_host:
-      ansible_user:
-      ansible_ssh_pass:
+      ansible_host: 54.221.106.39
+      ansible_user: centos
+      ansible_ssh_pass: DevOps321
