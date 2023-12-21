@@ -6,8 +6,8 @@
     DURATION: "110 hours"
     NAME: "Sivakumar"
   tasks:
-    - name: task -1
+    - name: task -1 of the playbook
       vars:
         COURSE: "DEVOPS with AWS"
-      ansible.playbook.debug:
+      ansible.builtin.debug:
         msg: "Hi All, I am learning {{COURSE}} from {{NAME}} for duration {{DURATION}}"
