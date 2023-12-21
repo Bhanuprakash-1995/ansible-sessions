@@ -1,0 +1,7 @@
+- name: Capture the values from Inventory files
+  hosts: web01
+  become: yes
+  tasks:
+    - name: task-1
+      ansible.builtin.debug:
+        msg: "Hi I am learing the {{COURSE}} from {{NAME}} for duration {{DURATION}}"
