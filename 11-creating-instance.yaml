@@ -18,9 +18,6 @@
           Environment: "{{item}}"
         exact_count: 1
         region: "{{REGION}}"
-
-      ansible.builtin.debug:
-        vars: ansible_distribution
       loop:
         - mongodb
         - catalogue
@@ -33,3 +30,6 @@
         - payment
         - dispatch
         - web
+    - name: display Ip addess
+      ansible.builtin.debug:
+        vars: ansible_distribution
