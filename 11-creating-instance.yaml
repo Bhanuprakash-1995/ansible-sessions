@@ -39,6 +39,6 @@
         record: "{{ item.item + '.' + ZONE }}"
         type: A
         ttl: 300 # Adjust TTL as per your requirement
-        value: "{{ item.instance.private_ip }}" # Use 'private_ip' for private IP
+        value: "{{ item.instance.private_ip_address }}" # Use 'private_ip' for private IP
       loop: "{{ ec2_instances.results }}"
-      when: item.instance.private_ip is defined
+      when: item.instance.private_ip_addresses is defined
