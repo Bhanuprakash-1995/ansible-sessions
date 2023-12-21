@@ -4,4 +4,4 @@
   tasks:
     - name: task-1
       ansible.builtin.debug:
-        msg: "Hi I am learing the {{COURSE}} from {{NAME}} for duration {{DURATION}}"
+        msg: "Hi all, I am learing the {{COURSE}} from {{NAME}} for duration {{DURATION}}"
