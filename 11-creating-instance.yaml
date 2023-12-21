@@ -21,9 +21,6 @@
         wait: true
       loop:
         - mongodb
-        - redis
-        - mysql
-        - shipping
       register: ec2_instances
 
     - name: Print the ec2_instances variable for debugging
