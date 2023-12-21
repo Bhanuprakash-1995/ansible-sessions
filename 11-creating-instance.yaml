@@ -10,7 +10,7 @@
     - name: start an instance
       amazon.aws.ec2_instance:
         name: "{{item}}"
-        instance_type: "{{INSTANCE_TYPE}}"
+        instance_type: "{{ 't3.medium' if item == 'mongodb' else INSTANCE_TYPE }}"
         security_group: "{{SECURITY_GP}}"
         image_id: "{{AMI_ID}}"
         tags:
