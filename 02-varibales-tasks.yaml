@@ -1,0 +1,13 @@
+- name: varibales from task playbook
+  hosts: web01
+  become: yes
+  vars:
+    COURSE: "Devops"
+    DURATION: "110 hours"
+    NAME: "Sivakumar"
+  tasks:
+    - name: task -1
+      vars:
+        COURSE: "DEVOPS with AWS"
+      ansible.playbook.debug:
+        msg: "Hi All, I am learning {{COURSE}} from {{NAME}} for duration {{DURATION}}"
