@@ -23,9 +23,9 @@
         - mongodb
       register: ec2_instances
 
-    - name: Print the ec2_instances variable for debugging
-      ansible.builtin.debug:
-        msg: "{{ec2_instances}}"
+    - name: Access private_ip_address for 'mongodb' instance
+      debug:
+        msg: "Private IP Address of 'mongodb' instance is {{ ec2_instances.results[0].instances[0].private_ip_address }}"
 
     # - name: Wait for instances to reach 'running' state
     #   wait_for:
