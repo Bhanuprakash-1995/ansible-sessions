@@ -1,12 +1,6 @@
 - hosts: localhost
   gather_facts: True
   become: yes
-  vars:
-    AMI_ID: ami-03265a0778a880afb
-    SECURITY_GP: sg-0170a2c37d33656c2
-    INSTANCE_TYPE: t2.micro
-    REGION: us-east-1
-    ZONE: roboshopapp.website
   tasks:
     - name: Start instances
       amazon.aws.ec2_instance:
