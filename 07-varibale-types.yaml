@@ -1,0 +1,30 @@
+- name: playbook for varibale types
+  hosts: web01
+  vars:
+    Name: Bhanuprakash
+    tools:
+      - Ansible
+      - Terraform
+      - Jenkins
+      - Docker
+      - Kubernates
+    Admin: False
+    Address:
+      Address1: BC Colony
+      Address2: House No 2-25
+  tasks:
+    - name: Print key varible
+      ansible.builtin.debug:
+        msg: "Name: {{ Name }}"
+
+    - name: Print List varible
+      ansible.builtin.debug:
+        msg: "{{tools}}"
+
+    - name: Print Boolean varible
+      ansible.builtin.debug:
+        msg: "{{Admin}}"
+
+    - name: Print Key value varible
+      ansible.builtin.debug:
+        msg: "{{Address}}"
