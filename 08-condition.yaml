@@ -1,0 +1,21 @@
+- name: play book for condition
+  hosts: web01
+  become: yes
+  tasks:
+    - name: check user roboshop
+      ansible.builtin.command: id roboshop
+      register: user
+      ignore_errors: true
+
+    - name: print the user varibale
+      ansible.builtin.debug:
+        msg: "User output:{{user}}"
+
+    - name: print the status code or return code
+      ansible.builtin.debug:
+        msg: "User Status: {{user.rc}}"
+
+    - name: create a user if not exists
+      ansible.builtin.user:
+        name: roboshop
+      when: user.rc!= 0 #condition
