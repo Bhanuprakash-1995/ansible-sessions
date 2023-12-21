@@ -4,8 +4,9 @@ all:
       ansible_host: 54.225.32.63
       ansible_user: centos
       ansible_ssh_pass: DevOps321
-[web01]
-COURSE="DevOps From inventory"
-NAME="Sivakumar"
-DURATION="110HRS"
+      vars:
+        COURSE="DevOps From inventory"
+        NAME="Sivakumar"
+        DURATION="110HRS"
+
 
