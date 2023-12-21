@@ -1,5 +1,5 @@
 - name: variables from PLAY level
-  hosts: localhost
+  hosts: web01
   tasks:
     - name: check variables
       ansible.builtin.debug:
