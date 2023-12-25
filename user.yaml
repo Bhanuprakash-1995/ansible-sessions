@@ -60,4 +60,4 @@
 
     - name: load catalogue data
       ansible.builtin.command: "mongo --host mongodb.roboshopapp.website < /app/schema/user.js"
-      when: users_count.stdout == "0"
+      # when: users_count.stdout == "0"
