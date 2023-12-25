@@ -19,10 +19,11 @@
         state: started
         enabled: yes
 
-    - name: Run MySQL secure installation
+    - name: Set MySQL root password
+      become: yes
       become_user: root
-      command: >
-        mysql_secure_installation
-        --socket=/var/run/mysqld/mysqld.sock
-        --set-root-pass
-        --password='RoboShop@1'
+      mysql_user:
+        login_user: root
+        login_password: ""
+        name: root
+        password: "RoboShop@1"
