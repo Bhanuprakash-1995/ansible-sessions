@@ -1,6 +1,7 @@
-- name: shipping
+- name: setup shipping server
   hosts: shipping
   become: yes
+
   tasks:
     - name: install maven
       ansible.builtin.package:
@@ -21,35 +22,30 @@
         url: https://roboshop-builds.s3.amazonaws.com/shipping.zip
         dest: /tmp
 
-    - name: extract shipping application
+    - name: unzip shipping application
       ansible.builtin.unarchive:
         src: /tmp/shipping.zip
         dest: /app
         remote_src: yes
 
-    - name: Run Maven clean package
-      ansible.builtin.command: "mvn clean package"
+    - name: install dependencies
+      ansible.builtin.command: mvn clean package
       args:
         chdir: /app
 
-    - name: Move and rename the JAR file
-      ansible.builtin.command:
-        cmd: mv /app/target/shipping-1.0.jar /app/shipping.jar
+    - name: move shipping jar file
+      ansible.builtin.command: mv target/shipping-1.0.jar shipping.jar
+      args:
+        chdir: /app
 
-    - name: Copy shipping service
+    - name: setup systemd shipping service
       ansible.builtin.copy:
         src: shipping.service
         dest: /etc/systemd/system/shipping.service
 
-    - name: deamon realod and start
+    - name: reload systemd
       ansible.builtin.systemd_service:
         daemon_reload: true
-
-    - name: start and enable shipping
-      ansible.builtin.service:
-        name: shipping
-        state: started
-        enabled: yes
 
     - name: install mysql
       ansible.builtin.package:
@@ -59,7 +55,7 @@
     - name: loading schema
       ansible.builtin.shell: mysql -h 172.31.92.29 -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
-    - name: Restart the shipping service
+    - name: start and enable shipping
       ansible.builtin.service:
         name: shipping
         state: restarted
