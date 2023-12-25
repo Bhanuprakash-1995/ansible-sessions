@@ -63,8 +63,10 @@
     - name: Install mysql
       ansible.builtin.shell: dnf install mysql -y
 
+    # - name: Import SQL file into MySQL
+    #   ansible.builtin.command: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
     - name: Import SQL file into MySQL
-      ansible.builtin.command: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
+      ansible.builtin.shell: "cat /app/schema/shipping.sql | mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1"
 
     - name: Restart the shipping service
       ansible.builtin.service:
