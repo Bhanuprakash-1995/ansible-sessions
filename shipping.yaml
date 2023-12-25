@@ -58,8 +58,10 @@
         state: started
         enabled: yes
 
-    - name: Install mysql
-      ansible.builtin.shell: dnf install mysql -y
+    - name: install mysql
+      ansible.builtin.package:
+        name: mysql
+        state: present
 
     # - name: Import SQL file into MySQL
     #   ansible.builtin.command: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
