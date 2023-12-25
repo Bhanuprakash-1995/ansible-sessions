@@ -1,6 +1,8 @@
 - name: shipping
   hosts: shipping
   become: yes
+  vars:
+    mysql_host: mysql.roboshopapp.website
   tasks:
     # - name: Install maven
     #   ansible.builtin.shell: dnf install maven -y
@@ -42,3 +44,24 @@
     - name: Move and rename the JAR file
       ansible.builtin.command:
         cmd: mv /app/target/shipping-1.0.jar /app/shipping.jar
+
+    - name: Copy shipping service
+      ansible.builtin.copy:
+        src: shipping.service
+        dest: /etc/systemd/system/shipping.service
+
+    - name: deamon realod and start
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: start and enable shipping
+      ansible.builtin.service:
+        name: shipping
+        state: started
+        enabled: yes
+
+    - name: Install mysql
+      ansible.builtin.shell: dnf install mysql -y
+
+    - name: Import SQL file into MySQL
+      ansible.builtin.command: mysql -h {{mysql_host}} -uroot -pRoboShop@1 < /app/schema/shipping.sql
