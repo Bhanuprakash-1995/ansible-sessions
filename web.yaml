@@ -41,17 +41,17 @@
       args:
         chdir: "/usr/share/nginx/html"
 
-    # - name: Unzip web.zip
-    #   ansible.builtin.unarchive:
-    #     src: "/usr/share/nginx/html/web.zip"
-    #     dest: "/usr/share/nginx/html/"
-    #     remote_src: yes
-
-    - name: extract web application
+    - name: Unzip web.zip
       ansible.builtin.unarchive:
-        src: /tmp/web.zip
-        dest: /usr/share/nginx/html/web.zip
+        src: "/usr/share/nginx/html/web.zip"
+        dest: "/usr/share/nginx/html/"
         remote_src: yes
+
+    # - name: extract web application
+    #   ansible.builtin.unarchive:
+    #     src: /tmp/web.zip
+    #     dest: /usr/share/nginx/html/web.zip
+    #     remote_src: yes
 
     - name: Copy mongodb repo
       ansible.builtin.copy:
