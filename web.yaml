@@ -1,5 +1,5 @@
 - name: Install Nginx on CentOS
-  hosts: web
+  hosts: web01
   become: yes
 
   tasks:
@@ -31,32 +31,19 @@
         state: absent
       with_items: "{{ html_files.files }}"
 
-    - name: download web application
-      ansible.builtin.get_url:
-        url: https://roboshop-builds.s3.amazonaws.com/web.zip
-        dest: /tmp
+    - name: Download file using curl
+      ansible.builtin.command: "curl -o /usr/share/nginx/html/web.zip https://roboshop-builds.s3.amazonaws.com/web.zip"
 
     - name: Execute command in /usr/nginx/html
       ansible.builtin.command: "ls -la"
       args:
         chdir: "/usr/share/nginx/html"
 
-    # - name: Unzip web.zip
-    #   ansible.builtin.unarchive:
-    #     src: "/usr/share/nginx/html/web.zip"
-    #     dest: "/usr/share/nginx/html/"
-    #     remote_src: yes
-
-    - name: extract web application
+    - name: Unzip web.zip
       ansible.builtin.unarchive:
-        src: /tmp/web.zip
-        dest: /usr/share/nginx/html/
+        src: "/usr/share/nginx/html/web.zip"
+        dest: "/usr/share/nginx/html/"
         remote_src: yes
-
-    - name: Copy mongodb repo
-      ansible.builtin.copy:
-        src: roboshop.conf
-        dest: /etc/nginx/default.d/roboshop.conf
 
     - name: Start Nginx service
       service:
