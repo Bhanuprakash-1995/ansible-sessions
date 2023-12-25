@@ -2,9 +2,6 @@
   hosts: shipping
   become: yes
   tasks:
-    # - name: Install maven
-    #   ansible.builtin.shell: dnf install maven -y
-
     - name: install maven
       ansible.builtin.package:
       name: maven
