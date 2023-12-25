@@ -65,3 +65,8 @@
 
     - name: Import SQL file into MySQL
       ansible.builtin.command: mysql -h {{mysql_host}} -uroot -pRoboShop@1 < /app/schema/shipping.sql
+
+    - name: Restart the shipping service
+      ansible.builtin.service:
+        name: shipping
+        state: restarted
