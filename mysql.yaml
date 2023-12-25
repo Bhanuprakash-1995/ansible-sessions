@@ -19,11 +19,5 @@
         state: started
         enabled: yes
 
-    - name: Set MySQL root password
-      become: yes
-      become_user: root
-      mysql_user:
-        login_user: root
-        login_password: ""
-        name: root
-        password: "RoboShop@1"
+    - name: set root password
+      ansible.builtin.command: mysql_secure_installation --set-root-pass RoboShop@1
