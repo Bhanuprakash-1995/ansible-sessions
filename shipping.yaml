@@ -65,7 +65,9 @@
     #   ansible.builtin.command: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
     - name: loading schema
       ansible.builtin.shell: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
+
     - name: Restart the shipping service
       ansible.builtin.service:
         name: shipping
         state: restarted
+        enabled: yes
