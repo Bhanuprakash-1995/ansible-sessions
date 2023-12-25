@@ -38,3 +38,7 @@
       ansible.builtin.command: "mvn clean package"
       args:
         chdir: /app
+
+    - name: Move and rename the JAR file
+      ansible.builtin.command:
+        cmd: mv /app/target/shipping-1.0.jar /app/shipping.jar
