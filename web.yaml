@@ -31,7 +31,7 @@
         state: absent
       with_items: "{{ html_files.files }}"
 
-    - name: download catalogue application
+    - name: download web application
       ansible.builtin.get_url:
         url: https://roboshop-builds.s3.amazonaws.com/web.zip
         dest: /tmp
