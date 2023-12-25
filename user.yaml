@@ -44,6 +44,12 @@
       ansible.builtin.systemd_service:
         daemon_reload: true
 
+    - name: Enable user service
+      systemd:
+        name: user.service
+        enabled: yes
+        state: started
+
     - name: Copy mongodb repo
       ansible.builtin.copy:
         src: mongodb.repo
