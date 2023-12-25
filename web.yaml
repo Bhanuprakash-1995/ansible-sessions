@@ -1,5 +1,5 @@
 - name: Install Nginx on CentOS
-  hosts: web01
+  hosts: web
   become: yes
 
   tasks:
