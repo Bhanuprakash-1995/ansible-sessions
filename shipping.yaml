@@ -5,14 +5,10 @@
     # - name: Install maven
     #   ansible.builtin.shell: dnf install maven -y
 
-    - name: Install OpenJDK (required for Maven)
-      ansible.builtin.yum:
-        name: java-11-openjdk-devel # Replace with the appropriate package name for your CentOS version
-
-    - name: Install Maven
-      ansible.builtin.yum:
-        name: maven
-        state: present
+    - name: install maven
+      ansible.builtin.package:
+      name: maven
+      state: present
 
     - name: create roboshop user
       ansible.builtin.user:
@@ -63,8 +59,6 @@
         name: mysql
         state: present
 
-    # - name: Import SQL file into MySQL
-    #   ansible.builtin.command: mysql -h mysql.roboshopapp.website -uroot -pRoboShop@1 < /app/schema/shipping.sql
     - name: loading schema
       ansible.builtin.shell: mysql -h 172.31.92.29 -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
