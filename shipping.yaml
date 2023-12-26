@@ -1,10 +1,11 @@
 - name: setup shipping server
   hosts: shipping
   become: yes
-
+  vars:
+    mysql_password: RoboShop@1
   tasks:
     - name: install maven
-      ansible.builtin.package:
+      ansible.builtin.dnf:
         name: maven
         state: present
 
@@ -48,12 +49,21 @@
         daemon_reload: true
 
     - name: install mysql
-      ansible.builtin.package:
+      ansible.builtin.dnf:
         name: mysql
         state: present
 
-    - name: loading schema
-      ansible.builtin.shell: mysql -h 172.31.90.137 -uroot -pRoboShop@1 < /app/schema/shipping.sql
+    - name: check cities schema exists or not
+      ansible.builtin.command: mysql -h mysql.daws76s.online -uroot -p{{mysql_password}} -sN -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = 'cities'"
+      register: schema
+
+    - name: print output
+      ansible.builtin.debug:
+        msg: "schema output: {{schema}}"
+
+    - name: load cities data
+      ansible.builtin.shell: "mysql -h mysql.daws76s.online -uroot -p{{mysql_password}}  < /app/schema/shipping.sql"
+      when: schema.stdout != "1"
 
     - name: start and enable shipping
       ansible.builtin.service:
